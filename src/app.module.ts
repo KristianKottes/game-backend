@@ -9,6 +9,7 @@ import { AppService } from './features/app/app.service';
 import { AuthModule, JwtAsyncModule, AuthService, JwtRefreshService } from './features/auth';
 import { EventsModule } from './features/events/events.module';
 import { GamesModule } from './features/games/games.module';
+import { MessagesModule } from './features/messages/messages.module';
 import { UsersModule } from './features/users/users.module';
 
 // TODO: Add global filter to return success object
@@ -33,6 +34,7 @@ import { UsersModule } from './features/users/users.module';
     JwtAsyncModule,
     GamesModule,
     EventsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [

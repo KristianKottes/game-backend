@@ -7,6 +7,8 @@ import {
 import { Server } from 'socket.io';
 
 import { GamesService } from '../games/games.service';
+import { CreateMessageDto } from '../messages/dto';
+import { MessagesService } from '../messages/messages.service';
 import { User } from '../users';
 
 @WebSocketGateway({
@@ -18,7 +20,10 @@ export class EventsGateway {
   @WebSocketServer()
   server: Server;
 
-  constructor(private gamesService: GamesService) {}
+  constructor(
+    private gamesService: GamesService,
+    private messagesService: MessagesService,
+  ) {}
 
   @SubscribeMessage('join-game')
   async joinGame(@MessageBody() data: { id: string; member_id: string }) {
@@ -57,5 +62,19 @@ export class EventsGateway {
     await this.gamesService.gameOver(data.gameId, data.winner.id);
 
     this.server.emit('game-over', { winner: data.winner });
+  }
+
+  @SubscribeMessage('send-message')
+  async sendMessage(@MessageBody() data: CreateMessageDto) {
+    const message = await this.messagesService.create(data);
+
+    this.server.emit('sent-message', message);
+  }
+
+  @SubscribeMessage('gave-up')
+  async gaveUp(@MessageBody() data: { loser_id: string; game_id: string }) {
+    const winner = await this.gamesService.gaveUp(data.game_id, data.loser_id);
+
+    this.server.emit('gave-up', winner);
   }
 }

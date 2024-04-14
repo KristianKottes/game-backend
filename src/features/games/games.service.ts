@@ -127,6 +127,18 @@ export class GamesService {
     return game;
   }
 
+  async gaveUp(gameId: string, loserId: string) {
+    const game = await this.getGameById(gameId);
+    const winnerId = game.owner_id === loserId ? game.member_id : game.owner_id;
+
+    game.status = GameStatus.Finished;
+    game.winner_id = winnerId;
+
+    await game.save();
+
+    return (await this.getGameById(gameId, { relations: ['winner'] })).winner;
+  }
+
   async generateMaze(gameId: string) {
     const game = await this.gamesRepository.findOneBy({ id: gameId });
 
