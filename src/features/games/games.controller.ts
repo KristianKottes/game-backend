@@ -1,11 +1,12 @@
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { Authorized } from '../auth';
 import { IRequestWithUser } from '../auth/interfaces';
 
 import { CreateGameDto, JoinToGameDto } from './dto';
 import { GamesService } from './games.service';
-
+@ApiTags('Games')
 @Controller('games')
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}

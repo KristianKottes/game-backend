@@ -1,5 +1,5 @@
 {
-  "name": "frwrd-backend",
+  "name": "game-backend",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -9,6 +9,7 @@
     "url": "PUT_REPOSITORY_URL_HERE"
   },
   "scripts": {
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -24,13 +25,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "setup:husky": "rimraf .husky/pre-commit .husky/pre-push && husky add .husky/pre-commit \"npx lint-staged\"",
     "setup": "yarn setup:husky && cpy --rename=.env .env.example ./",
-    "migration:generate": "typeorm-ts-node-esm migration:generate -d ./src/data-source.ts",
-    "migration:run": "typeorm-ts-node-esm migration:run -d ./src/data-source.ts",
-    "migration:revert": "typeorm-ts-node-esm migration:revert -d ./src/data-source.ts",
-    "migration:show": "typeorm-ts-node-esm migration:show -d ./src/data-source.ts"
+    "migration:generate": "yarn typeorm migration:generate -d ./src/data-source.ts",
+    "migration:run": "yarn typeorm migration:run -d ./src/data-source.ts",
+    "migration:revert": "yarn typeorm migration:revert -d ./src/data-source.ts",
+    "migration:show": "yarn typeorm migration:show -d ./src/data-source.ts"
   },
   "engines": {
-    "node": "16.x",
+    "node": "20.x",
     "yarn": "1.22.22"
   },
   "dependencies": {

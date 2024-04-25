@@ -28,17 +28,14 @@
 
 ## Installation
 
-First, install dependencies and create `husky` hooks:
+First, install dependencies:
 
 ```bash
 $ yarn
-$ npx husky install
-$ yarn setup
 ```
 
 Now you have `.env` file in working directory
 Fill missing values according to the comments before running the project
-
 
 Now you can apply migrations
 
@@ -75,7 +72,7 @@ $ yarn start:prod
 ## API documentation
 
 Swagger API is running on the `/docs` route of the application.
-Swagger will be enabled if you set `ENABLE_SWAGGER=true` env variable. 
+Swagger will be enabled if you set `ENABLE_SWAGGER=true` env variable.
 
 ## Test
 
